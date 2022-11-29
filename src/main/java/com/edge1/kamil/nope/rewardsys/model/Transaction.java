@@ -17,6 +17,7 @@ import java.sql.Date;
 public class Transaction {
     @Id
     @Column(name = "transactionId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "price", nullable = false)
