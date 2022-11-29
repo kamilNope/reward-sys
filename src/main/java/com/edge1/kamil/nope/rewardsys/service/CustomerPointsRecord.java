@@ -2,16 +2,14 @@ package com.edge1.kamil.nope.rewardsys.service;
 
 import java.util.Objects;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CustomerPointsRecord {
-
-    Integer totalUserScore;
-    Integer monthUserScore;
-    String userID;
+    String customerName;
+    Integer customerScore;
 }

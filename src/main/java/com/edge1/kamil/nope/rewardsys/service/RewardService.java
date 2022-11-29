@@ -9,8 +9,6 @@ import java.util.List;
 public class RewardService {
     private static final int DOUBLE_POINTS_THRESHOLD = 100;
     private static final int SINGLE_POINTS_THRESHOLD = 50;
-    Double transactionSum;
-    CustomerPointsRecord customerPointsRecord = new CustomerPointsRecord();
 
     public int sumRewardPoints(List<Transaction> transactions) {
         return countPointsFromSpentMoney(getSumOfTransactions(transactions));

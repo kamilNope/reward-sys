@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionService {
 
-    public List<Transaction> selectTransactionsFromPreviousMonth(List<Transaction> transactions){
-        LocalDate previousMontDate = LocalDate.now().minusMonths(1L);
+    public List<Transaction> selectTransactionsFromPrevMonth(List<Transaction> transactions){
+        LocalDate previousMonthDate = LocalDate.now().minusMonths(1L);
         return transactions.stream()
-                .filter(transaction -> previousMontDate.isBefore(transaction.getDate().toLocalDate()))
+                .filter(transaction -> previousMonthDate.isBefore(transaction.getDate().toLocalDate()))
                 .collect(Collectors.toList());
     }
 
