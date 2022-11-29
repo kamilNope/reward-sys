@@ -9,9 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class CustomerPointsRecord {
+public final class CustomerPointsRecord {
 
-    Double totalUserScore;
-    Double monthUserScore;
+    Integer totalUserScore;
+    Integer monthUserScore;
     String userID;
 }

@@ -32,11 +32,11 @@ public class RewardSysApplication {
             customerRepository.save(new Customer(2L, "ANN"));
             customerRepository.save(new Customer(1L, "BOB"));
 
-            transactionRepository.save(new Transaction(100L, 49.8, ted));
-            transactionRepository.save(new Transaction(101L, 49.8, ted));
-            transactionRepository.save(new Transaction(101L, 49.8, ted));
-            transactionRepository.save(new Transaction(101L, 49.8, ann));
-            transactionRepository.save(new Transaction(101L, 90.0, bob));
+            transactionRepository.save(new Transaction(100L, 49.8, new Date(2021, 12, 1), ted));
+            transactionRepository.save(new Transaction(101L, 49.8, new Date(2021, 12, 1),  ted));
+            transactionRepository.save(new Transaction(101L, 49.8, new Date(2021, 12, 1), ted));
+            transactionRepository.save(new Transaction(101L, 49.8, new Date(2021, 12, 1), ann));
+            transactionRepository.save(new Transaction(101L, 90.0, new Date(2021, 12, 1), bob));
         };
     }
 }

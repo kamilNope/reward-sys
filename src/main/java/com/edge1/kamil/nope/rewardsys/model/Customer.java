@@ -15,12 +15,12 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "CUSTOMER") public
-class Customer {
-    @Id @Column(name = "ID_C", nullable = false)
+@Table(name = "CUSTOMER")
+public class Customer {
+    @Id @Column(name = "customerId", nullable = false)
     private Long id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
 }
