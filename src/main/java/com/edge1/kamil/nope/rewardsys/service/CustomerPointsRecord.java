@@ -4,15 +4,24 @@ import java.util.Objects;
 
 public class CustomerPointsRecord {
 
-    public Double userScore;
-    public String userID;
+    Double totalUserScore;
+    Double monthUserScore;
+    String userID;
 
-    public Double getUserScore() {
-        return userScore;
+    public Double getMonthUserScore() {
+        return monthUserScore;
     }
 
-    public void setUserScore(Double userScore) {
-        this.userScore = userScore;
+    public void setMonthUserScore(Double monthUserScore) {
+        this.monthUserScore = monthUserScore;
+    }
+
+    public Double getTotalUserScore() {
+        return totalUserScore;
+    }
+
+    public void setTotalUserScore(Double totalUserScore) {
+        this.totalUserScore = totalUserScore;
     }
 
     public String getUserID() {
@@ -27,15 +36,15 @@ public class CustomerPointsRecord {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (!(o instanceof CustomerPointsRecord))
             return false;
         CustomerPointsRecord that = (CustomerPointsRecord) o;
-        return Objects.equals(getUserScore(), that.getUserScore()) && Objects.equals(getUserID(),
-                that.getUserID());
+        return Objects.equals(getTotalUserScore(), that.getTotalUserScore()) && Objects.equals(
+                getMonthUserScore(), that.getMonthUserScore()) && Objects.equals(getUserID(), that.getUserID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserScore(), getUserID());
+        return Objects.hash(getTotalUserScore(), getMonthUserScore(), getUserID());
     }
 }
