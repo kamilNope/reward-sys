@@ -1,4 +1,4 @@
-package com.edge1.kamil.nope.rewardsys.entity;
+package com.edge1.kamil.nope.rewardsys.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

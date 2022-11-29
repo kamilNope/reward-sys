@@ -1,13 +1,15 @@
 package com.edge1.kamil.nope.rewardsys;
 
-import com.edge1.kamil.nope.rewardsys.entity.Customer;
-import com.edge1.kamil.nope.rewardsys.entity.Transaction;
+import com.edge1.kamil.nope.rewardsys.model.Customer;
+import com.edge1.kamil.nope.rewardsys.model.Transaction;
 import com.edge1.kamil.nope.rewardsys.repository.CustomerRepository;
 import com.edge1.kamil.nope.rewardsys.repository.TransactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.sql.Date;
 
 @SpringBootApplication
 public class RewardSysApplication {
