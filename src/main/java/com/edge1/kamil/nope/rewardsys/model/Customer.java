@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "CUSTOMER")
 public class Customer {
+
     @Id @Column(name = "customerId", nullable = false)
     private Long id;
 

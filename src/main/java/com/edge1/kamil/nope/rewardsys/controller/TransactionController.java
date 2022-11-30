@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -24,7 +25,8 @@ class TransactionController {
 
 
     @PostMapping(value = "/add")
-    ResponseEntity<TransactionDTO> addNewTransactionOfCustomer(@RequestBody TransactionDTO transactionDTO) {
+    ResponseEntity<TransactionDTO> addNewTransactionOfCustomer(
+            @Valid @RequestBody TransactionDTO transactionDTO) {
         Customer customer = customerRepository.findById(transactionDTO.getCustomerId())
                 .orElseThrow(() -> new TransactionNotFound(transactionDTO.getCustomerId().toString()));
 
@@ -47,7 +49,8 @@ class TransactionController {
 
 
     @PutMapping(value = "/update")
-    ResponseEntity<TransactionDTO> updateTransactionOfCustomer(@RequestBody TransactionDTO transactionDTO) {
+    ResponseEntity<TransactionDTO> updateTransactionOfCustomer(
+            @Valid @RequestBody TransactionDTO transactionDTO) {
         Customer customer = customerRepository.findById(transactionDTO.getCustomerId())
                 .orElseThrow(() -> new TransactionNotFound(transactionDTO.getCustomerId().toString()));
 
