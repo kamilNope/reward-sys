@@ -19,7 +19,10 @@ public class RewardSysApplication {
     }
 
     @Bean
-    public CommandLineRunner fillCustomers(CustomerRepository customerRepository, TransactionRepository transactionRepository) {
+    public CommandLineRunner fillCustomers(
+            CustomerRepository customerRepository,
+            TransactionRepository transactionRepository
+    ) {
         return (args) -> {
             final Customer ted = new Customer(1L, "TED");
             final Customer ann = new Customer(2L, "ANN");

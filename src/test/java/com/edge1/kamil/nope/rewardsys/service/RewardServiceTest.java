@@ -2,7 +2,9 @@ package com.edge1.kamil.nope.rewardsys.service;
 
 import com.edge1.kamil.nope.rewardsys.model.Customer;
 import com.edge1.kamil.nope.rewardsys.model.Transaction;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -14,6 +16,11 @@ class RewardServiceTest {
 
     RewardService rewardService = new RewardService();
 
+    @BeforeEach
+    void setup() {
+        ReflectionTestUtils.setField(rewardService, "doublePointsThreshold", 100);
+        ReflectionTestUtils.setField(rewardService, "singlePointsThreshold", 50);
+    }
     @Test
     void shouldNotSumRewardPointsIfPriceIsLower() {
         // given

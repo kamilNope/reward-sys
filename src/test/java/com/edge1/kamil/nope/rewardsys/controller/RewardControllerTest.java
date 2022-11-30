@@ -1,10 +1,10 @@
 package com.edge1.kamil.nope.rewardsys.controller;
 
+import com.edge1.kamil.nope.rewardsys.errors.TransactionNotFound;
 import com.edge1.kamil.nope.rewardsys.model.Customer;
 import com.edge1.kamil.nope.rewardsys.model.Transaction;
 import com.edge1.kamil.nope.rewardsys.repository.CustomerRepository;
 import com.edge1.kamil.nope.rewardsys.repository.TransactionRepository;
-import com.edge1.kamil.nope.rewardsys.service.CustomerPointsRecord;
 import com.edge1.kamil.nope.rewardsys.service.RewardService;
 import com.edge1.kamil.nope.rewardsys.service.TransactionService;
 import com.edge1.kamil.nope.rewardsys.view.CustomerPointsDTO;
@@ -16,12 +16,14 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,6 +52,8 @@ class RewardControllerTest {
                 new Transaction(1L, 99.0, Date.valueOf(LocalDate.now()), ted)));
         when(customerRepository.findById(1L)).thenReturn(Optional.of(ted));
         when(transactionRepository.findByCustomerId(any())).thenReturn(tedTran);
+        ReflectionTestUtils.setField(rewardService, "doublePointsThreshold", 100);
+        ReflectionTestUtils.setField(rewardService, "singlePointsThreshold", 50);
         // when
         final ResponseEntity<CustomerPointsDTO> customerMonthScore = rewardController.getCustomerMonthScore(1L);
         // then
@@ -57,13 +61,13 @@ class RewardControllerTest {
         verify(transactionService, times(1)).selectTransactionsFromPrevMonth(tedTran.get());
         verify(customerRepository, times(1)).findById(1L);
         assertEquals(HttpStatus.OK, customerMonthScore.getStatusCode());
-        assertEquals(49, customerMonthScore.getBody().getCustomerScore());
+        assertEquals(49, requireNonNull(customerMonthScore.getBody()).getCustomerScore());
     }
 
     @Test
     void shouldReturnErrorHandle() {
         // when
-        assertThrows(CustomApiException.class, () -> rewardController.getCustomerMonthScore(13L));
+        assertThrows(TransactionNotFound.class, () -> rewardController.getCustomerMonthScore(13L));
         // then
         verify(transactionRepository, times(1)).findByCustomerId(13L);
         verify(customerRepository, never()).findById(13L);

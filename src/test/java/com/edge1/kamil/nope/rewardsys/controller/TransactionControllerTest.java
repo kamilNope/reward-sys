@@ -35,7 +35,9 @@ class TransactionControllerTest {
     void shouldAddTransaction() {
         // given
         TransactionDTO transactionDTO = new TransactionDTO(100L, 1000d, 1L);
-        Transaction transaction = new Transaction(100L, 1000d, new Date(2021, 9, 1), new Customer(1L, "TED"));
+        Transaction transaction = new Transaction(
+                100L, 1000d, new Date(2021, 9, 1),
+                new Customer(1L, "TED"));
         final Customer ted = new Customer(1L, "TED");
         when(customerRepository.findById(1L)).thenReturn(Optional.of(ted));
         when(transactionRepository.save(any())).thenReturn(transaction);
@@ -56,8 +58,8 @@ class TransactionControllerTest {
         final Customer ted = new Customer(1L, "TED");
         when(customerRepository.findById(1L)).thenReturn(Optional.of(ted));
         // when
-        final ResponseEntity<TransactionDTO> transactionOfCustomer = transactionController.updateTransactionOfCustomer(
-                transactionDTO);
+        final ResponseEntity<TransactionDTO> transactionOfCustomer = transactionController
+                .updateTransactionOfCustomer(transactionDTO);
         // then
         verify(customerRepository, times(1)).findById(1L);
         verify(transactionRepository, times(1)).save(any());

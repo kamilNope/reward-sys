@@ -1,14 +1,19 @@
 package com.edge1.kamil.nope.rewardsys.service;
 
 import com.edge1.kamil.nope.rewardsys.model.Transaction;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class RewardService {
-    private static final int DOUBLE_POINTS_THRESHOLD = 100;
-    private static final int SINGLE_POINTS_THRESHOLD = 50;
+
+    @Value("${double.points.threshold}")
+    private int doublePointsThreshold;
+    @Value("${single.points.threshold}")
+    private int singlePointsThreshold;
 
     public int sumRewardPoints(List<Transaction> transactions) {
         return countPointsFromSpentMoney(getSumOfTransactions(transactions));
@@ -21,10 +26,10 @@ public class RewardService {
     }
 
     private int countPointsFromSpentMoney(Double transactionsSum) {
-        if (transactionsSum > DOUBLE_POINTS_THRESHOLD) {
-            return (int) (((transactionsSum - DOUBLE_POINTS_THRESHOLD) * 2) + SINGLE_POINTS_THRESHOLD);
-        } else if (transactionsSum > SINGLE_POINTS_THRESHOLD) {
-            return (int) (transactionsSum - SINGLE_POINTS_THRESHOLD);
+        if (transactionsSum > doublePointsThreshold) {
+            return (int) (((transactionsSum - doublePointsThreshold) * 2) + singlePointsThreshold);
+        } else if (transactionsSum > singlePointsThreshold) {
+            return (int) (transactionsSum - singlePointsThreshold);
         }
         return 0;
     }
