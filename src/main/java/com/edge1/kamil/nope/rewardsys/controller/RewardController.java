@@ -6,7 +6,6 @@ import com.edge1.kamil.nope.rewardsys.model.Customer;
 import com.edge1.kamil.nope.rewardsys.model.Transaction;
 import com.edge1.kamil.nope.rewardsys.repository.CustomerRepository;
 import com.edge1.kamil.nope.rewardsys.repository.TransactionRepository;
-import com.edge1.kamil.nope.rewardsys.service.CustomerPointsRecord;
 import com.edge1.kamil.nope.rewardsys.service.RewardService;
 import com.edge1.kamil.nope.rewardsys.service.TransactionService;
 import com.edge1.kamil.nope.rewardsys.view.CustomerPointsDTO;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController

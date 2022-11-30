@@ -23,31 +23,19 @@ class RewardServiceTest {
     }
     @Test
     void shouldNotSumRewardPointsIfPriceIsLower() {
-        // given
-        Double price = 40.99;
-        List<Transaction> transactions = List.of(new Transaction(1L, price, Date.valueOf(LocalDate.now()),
-                new Customer(1L, "TED")));
-        // when & then
-        assertEquals(0, rewardService.sumRewardPoints(transactions));
+
+        assertEquals(0, rewardService.countRewardPointsFor(40.99));
     }
 
     @Test
     void shouldSumRewardPointsIfPriceIsHigher() {
-        // given
-        Double price = 99.99;
-        List<Transaction> transactions = List.of(new Transaction(1L, price, Date.valueOf(LocalDate.now()),
-                new Customer(1L, "TED")));
-        // when & then
-        assertEquals(49, rewardService.sumRewardPoints(transactions));
+
+        assertEquals(49, rewardService.countRewardPointsFor(99.99));
     }
 
     @Test
     void shouldSumRewardPointsIfPriceIsHigherPlusExtraPoints() {
-        // given
-        Double price = 120.01;
-        List<Transaction> transactions = List.of(new Transaction(1L, price, Date.valueOf(LocalDate.now()),
-                new Customer(1L, "TED")));
-        // when & then
-        assertEquals(90, rewardService.sumRewardPoints(transactions));
+
+        assertEquals(90, rewardService.countRewardPointsFor(120.01));
     }
 }

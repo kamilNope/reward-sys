@@ -15,6 +15,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "TRANSACTION")
 public class Transaction {
+
     @Id
     @Column(name = "transactionId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,9 @@ public class Transaction {
 
     @Column(name = "date")
     private Date date;
+
+    @Column(name = "rewardPoints")
+    private Integer rewardPoints;
 
     @ManyToOne
     @JoinColumn(name = "customerId")

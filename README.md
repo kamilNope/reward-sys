@@ -15,21 +15,21 @@ Basic test data is loaded along with application start.
 
 1. Run application
 2. Use postman or curl to run scenarios
-3. to add/update transaction
+3. to get reward points total
 ```
-curl -X POST -H "Content-Type: application/json" -d  "{ \"id\": null, \"price\": 1200, \"customerId\": 1 }"  localhost:8080/api/transactions/add
+curl -X GET localhost:8080/api/reward-program/1/total-score
 ```
-4. to update transaction
-```
-curl -X PUT -H "Content-Type: application/json" --data "{ \"id\": 10000, \"price\": 1200, \"customerId\": 1 }"  localhost:8080/api/transactions/update
-```
-5. to get reward points for one month
+4. to get reward points for one month
 ```
 curl -X GET localhost:8080/api/reward-program/1/month-score
 ```
-5. to get reward points total
+5. to add/update transaction
 ```
-curl -X GET localhost:8080/api/reward-program/1/total-score
+curl -X POST -H "Content-Type: application/json" -d  "{ \"id\": null, \"price\": 120.1, \"customerId\": 1 }"  localhost:8080/api/transactions/add
+```
+5. to update transaction
+```
+curl -X PUT -H "Content-Type: application/json" --data "{ \"id\": 10000, \"price\": 100, \"customerId\": 1 }"  localhost:8080/api/transactions/update
 ```
 6. to get error handling
 ```

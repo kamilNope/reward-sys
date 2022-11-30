@@ -45,19 +45,42 @@ class RewardControllerTest {
     RewardController rewardController;
 
     @Test
-    void shouldReturnMonthReward() {
+    void shouldReturnTotalReward() {
         // given
         final Customer ted = new Customer(1L, "TED");
         final Optional<List<Transaction>> tedTran = Optional.of(List.of(
-                new Transaction(1L, 99.0, Date.valueOf(LocalDate.now()), ted)));
+                new Transaction(1L, 99.0, Date.valueOf(LocalDate.now()), 49, ted),
+                new Transaction(4L, 99.0, Date.valueOf(LocalDate.now().minusMonths(1)), 20, ted),
+                new Transaction(5L, 99.0, Date.valueOf(LocalDate.now().minusMonths(2)), 16, ted)));
         when(customerRepository.findById(1L)).thenReturn(Optional.of(ted));
         when(transactionRepository.findByCustomerId(any())).thenReturn(tedTran);
         ReflectionTestUtils.setField(rewardService, "doublePointsThreshold", 100);
         ReflectionTestUtils.setField(rewardService, "singlePointsThreshold", 50);
         // when
-        final ResponseEntity<CustomerPointsDTO> customerMonthScore = rewardController.getCustomerMonthScore(1L);
+        final ResponseEntity<CustomerPointsDTO> customerMonthScore = rewardController.getCustomerTotalScore(1L);
         // then
         verify(rewardService, times(1)).sumRewardPoints(tedTran.get());
+        verify(customerRepository, times(1)).findById(1L);
+        assertEquals(HttpStatus.OK, customerMonthScore.getStatusCode());
+        assertEquals(85, requireNonNull(customerMonthScore.getBody()).getCustomerScore());
+    }
+
+    @Test
+    void shouldReturnMonthReward() {
+        // given
+        final Customer ted = new Customer(1L, "TED");
+        final Optional<List<Transaction>> tedTran = Optional.of(List.of(
+                new Transaction(1L, 99.0, Date.valueOf(LocalDate.now()), 49, ted),
+                new Transaction(4L, 99.0, Date.valueOf(LocalDate.now().minusMonths(1)), 20, ted),
+                new Transaction(5L, 99.0, Date.valueOf(LocalDate.now().minusMonths(2)), 16, ted)));
+        when(customerRepository.findById(1L)).thenReturn(Optional.of(ted));
+        when(transactionRepository.findByCustomerId(1L)).thenReturn(tedTran);
+        ReflectionTestUtils.setField(rewardService, "doublePointsThreshold", 100);
+        ReflectionTestUtils.setField(rewardService, "singlePointsThreshold", 50);
+        // when
+        final ResponseEntity<CustomerPointsDTO> customerMonthScore = rewardController.getCustomerMonthScore(1L);
+        // then
+        verify(rewardService, times(1)).sumRewardPoints(List.of(tedTran.get().get(0)));
         verify(transactionService, times(1)).selectTransactionsFromPrevMonth(tedTran.get());
         verify(customerRepository, times(1)).findById(1L);
         assertEquals(HttpStatus.OK, customerMonthScore.getStatusCode());

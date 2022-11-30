@@ -1,9 +1,6 @@
 package com.edge1.kamil.nope.rewardsys.view;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +12,8 @@ public final class TransactionDTO {
     private Long id;
     @NotNull
     private Double price;
+    @Setter
+    private Integer rewardPoints;
     @NotNull
     private Long customerId;
 }
