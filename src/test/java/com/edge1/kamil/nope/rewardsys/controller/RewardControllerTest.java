@@ -90,8 +90,11 @@ class RewardControllerTest {
     @Test
     void shouldReturnErrorHandle() {
         // when
-        assertThrows(TransactionNotFound.class, () -> rewardController.getCustomerMonthScore(13L));
+        TransactionNotFound ex = assertThrows(TransactionNotFound.class, () ->
+                rewardController.getCustomerMonthScore(13L));
         // then
+        assertEquals("13", ex.getMessage());
+
         verify(transactionRepository, times(1)).findByCustomerId(13L);
         verify(customerRepository, never()).findById(13L);
     }
